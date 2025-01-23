@@ -1,13 +1,47 @@
 import Image from "next/image";
-import { Button } from "@chakra-ui/react";
-
+import { Button, For, Card, Icon, Text, Flex } from "@chakra-ui/react";
+import { Avatar } from "@/components/ui/avatar";
+import { HiPlus } from "react-icons/hi";
+import { formatDate } from "@/util/format";
 export default function Home() {
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Button variant="solid" colorPalette="red">
-          Button
-        </Button>
+    <div className="min-h-screen pb-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="overflow-x-auto w-full whitespace-nowrap p-4">
+        <For each={["subtle", "outline", "elevated"]}>
+          {(variant) => (
+            <Card.Root
+              width="320px"
+              variant="subtle"
+              key={variant}
+              className="inline-block mr-4"
+            >
+              <Card.Body gap="2">
+                <Card.Root width="100%" variant="outline" key="1">
+                  <Card.Body gap="1">
+                    <Card.Title>Nue Camp</Card.Title>
+                    <Flex justifyContent="space-between" alignItems="center">
+                      <Text  textStyle="xs" color="gray.400">{formatDate()}</Text>
+                      <Avatar
+                        src="https://picsum.photos/200/300"
+                        name="Nue Camp"
+                        size="xs"
+                      />
+                    </Flex>
+                  </Card.Body>
+                </Card.Root>
+              </Card.Body>
+              <Card.Footer justifyContent="flex-start">
+                <Button variant="plain" colorPalette="cyan">
+                  <Icon fontSize="40px" color="teal">
+                    <HiPlus />
+                  </Icon>
+                  Add a card
+                </Button>
+              </Card.Footer>
+            </Card.Root>
+          )}
+        </For>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
