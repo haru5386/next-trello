@@ -1,3 +1,123 @@
+## 功能
+可以新增卡片
+可以刪除卡片
+可以編輯卡片
+可以拖曳卡片
+可以主要新增分類
+可以新增次要分類
+卡片下可以留言
+點擊展開卡片詳細資訊
+排列照卡片類別
+可以登入
+登入後才能增刪改(router auth)
+登入後才會看到會記錄事件
+
+--------
+## 頁面
+登入頁面
+卡片頁面
+新增頁面
+修改頁面
+新增分類
+
+--------
+## Api
+
+### 新增卡片
+Post api/card
+/** {
+    id,
+    title,
+    description,
+    mainClass,
+    secondaryClass,
+    createTime,
+    creator,
+    editTime,
+    estimatedDeadline
+} */
+
+### 修改卡片
+Put api/card/{id}
+/** {
+    id,
+    title,
+    description,
+    mainClass,
+    secondaryClass,
+    createTime,
+    creator,
+    editTime,
+    estimatedDeadline
+} */
+
+### 刪除卡片
+delete api/card/{id}
+/** params
+{
+    id
+} */
+
+### 獲取卡片
+get api/cards
+/** params
+{
+    mainClass
+} */
+
+*******
+
+## 新增分類
+Post api/mainClass
+/** {
+    id,
+    name
+} */
+
+## 修改分類
+Put api/mainClass/{id}
+/** {
+    id,
+    name
+} */
+
+## 刪除分類
+delete api/mainClass
+/** {
+    id,
+} */
+
+******
+## 新增次要分類
+Post api/secondaryClass
+/** {
+    id,
+    name,
+    color
+} */
+
+*****
+
+## 登入
+Post api/login
+/** {
+    password,
+    account,
+} */
+
+*****
+
+### 事件紀錄
+Post api/record
+/** {
+    id,
+    time,
+    editor,
+    event, // create {title} card , draggle to {mainClass}, edit {title} card
+} */
+
+--------
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
