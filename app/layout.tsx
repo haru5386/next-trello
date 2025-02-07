@@ -4,6 +4,8 @@ import "./globals.css";
 import ThemeProvider from "./theme-provider";
 import * as React from "react";
 import Header from "@/components/Header";
+import Provider from './storeProvider';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,20 +24,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div id="modal"></div>
+        <div id="modal-root"></div>
+
         <React.StrictMode>
-          <ThemeProvider>
-            <Header></Header>
-            {children}
-          </ThemeProvider>
+          <Provider>
+            <ThemeProvider>
+              <Header></Header>
+              {children}
+              {modal}
+            </ThemeProvider>
+          </Provider>
         </React.StrictMode>
       </body>
     </html>
