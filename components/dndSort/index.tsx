@@ -31,6 +31,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
 import { postBoards, postTasks, fetchTasks, fetchBoards } from "@/store/tasks";
 import cloneDeep from "lodash/cloneDeep";
+import AddTaskModal from "../modal/addTask";
 
 const TRASH_ID = "TRASH";
 
@@ -207,6 +208,10 @@ export default function DndSort() {
     }
   };
 
+  const handleAddCard = ()=>{
+
+  }
+
   const dropAnimation: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
       styles: {
@@ -216,6 +221,12 @@ export default function DndSort() {
       },
     }),
   };
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
+  const openModal = ()=>{
+    console.log('openModal')
+    setIsShowModal(true)
+  }
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -244,13 +255,13 @@ export default function DndSort() {
           strategy={horizontalListSortingStrategy}
         >
           {containers &&
-            containers.map((item) => (
-              <Droppable key={item.id} id={item.id}>
+            containers.map((container) => (
+              <Droppable key={container.id} id={container.id} addCard={openModal}>
                 <SortableContext
                   items={containers}
                   strategy={verticalListSortingStrategy}
                 >
-                  {items[item.id]?.map((i) => (
+                  {items[container.id]?.map((i) => (
                     <SortableItem key={i.id} id={i.id}></SortableItem>
                   ))}
                 </SortableContext>
@@ -274,6 +285,7 @@ export default function DndSort() {
         </DragOverlay>,
         document.body
       )}
+      <AddTaskModal isOpen={isShowModal}></AddTaskModal>
     </DndContext>
   );
 }

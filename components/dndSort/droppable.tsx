@@ -14,10 +14,12 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) =>
 export default function Droppable({
   children,
   id,
+  addCard,
   ...props
 }:  {
   id: UniqueIdentifier;
   children?: React.ReactNode;
+  addCard?: ()=>void
 }) {
   const {
     attributes,
@@ -60,7 +62,7 @@ export default function Droppable({
       </Card.Header>
       <Card.Body gap="1">{children}</Card.Body>
       <Card.Footer justifyContent="flex-start">
-        <Button variant="plain" colorPalette="cyan">
+        <Button variant="plain" colorPalette="cyan" onClick={addCard}>
           <Icon fontSize="40px" color="teal">
             <HiPlus />
           </Icon>
