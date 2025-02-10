@@ -234,9 +234,6 @@ export default function DndSort() {
     }),
   };
 
-const handleAddCard = ()=>{
-  console.log('handle add task')
-}
 
 
   useEffect(() => {
@@ -267,7 +264,7 @@ const handleAddCard = ()=>{
         >
           {containers &&
             containers.map((container) => (
-              <Droppable key={container.id} id={container.id} addCard={handleAddCard}>
+              <Droppable key={container.id} container={container}>
                 <SortableContext
                   items={containers}
                   strategy={verticalListSortingStrategy}
@@ -282,10 +279,11 @@ const handleAddCard = ()=>{
       </div>
       {createPortal(
         <DragOverlay dropAnimation={dropAnimation}>
-          {activeId ? (
+          {
+          activeId ? (
             containers.some((container) => container.id === activeId) ? (
-              <Droppable id={activeId}>
-                {items[activeId].map((i) => (
+              <Droppable container={containers.find((container) => container.id === activeId)!}>
+                {items[activeId]?.map((i) => (
                   <SortableItem key={i.id} id={i.id} item={i}></SortableItem>
                 ))}
               </Droppable>

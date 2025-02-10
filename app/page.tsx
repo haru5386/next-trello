@@ -6,8 +6,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { postTasks, postBoards } from "@/store/tasks";
-import { useState } from "react";
-
+import AddBoardModal from "@/components/modal/addBoardModal";
 export default function Home() {
 
   const dispatch = useDispatch<AppDispatch>();
@@ -112,6 +111,7 @@ export default function Home() {
     <>
       <Button onClick={handleAddBoard}>Add Board</Button>
       <Button onClick={handleAddAPITask}>Add API Task</Button>
+      <AddBoardModal />
       <Board />
     
     </>

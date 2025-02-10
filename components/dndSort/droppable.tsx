@@ -14,11 +14,10 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) =>
 
 export default function Droppable({
   children,
-  id,
-  addCard,
+  container,
   ...props
 }:  {
-  id: UniqueIdentifier;
+  container: {title: string; id:UniqueIdentifier};
   children?: React.ReactNode;
   addCard?: ()=>void
 }) {
@@ -30,7 +29,7 @@ export default function Droppable({
     transition,
     transform,
   } = useSortable({
-    id,
+    id: container.id,
     data: {
       type: "container",
     },
@@ -48,7 +47,7 @@ export default function Droppable({
       ref={setNodeRef}
       width="320px"
       variant="subtle"
-      key={id}
+      key={container.id}
       style={style}
       className={
         isDragging ? "opacity-50 inline-block mr-4" : "inline-block mr-4"
@@ -57,13 +56,13 @@ export default function Droppable({
     > 
       <Card.Header >
         <Flex justifyContent="space-between" gap="2">
-        <div>{id}</div>
+        <div>{container.title}</div>
         <HiOutlineDotsVertical {...attributes} {...listeners} />
         </Flex>
       </Card.Header>
       <Card.Body gap="1">{children}</Card.Body>
       <Card.Footer justifyContent="flex-start">
-       <AddTask addCard={addCard} containerId={id}/>
+       <AddTask containerId={container.id}/>
       </Card.Footer>
     </Card.Root>
   );

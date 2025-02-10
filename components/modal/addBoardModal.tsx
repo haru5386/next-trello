@@ -1,9 +1,7 @@
-import { UniqueIdentifier } from "@dnd-kit/core";
 import { Button, Stack, Field, Input, Icon } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SingleDatepicker } from "../ui/datepicker/datepicker";
 import {
   DialogRoot,
   DialogTrigger,
@@ -17,58 +15,45 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import cloneDeep from "lodash/cloneDeep";
-import { postTasks } from "@/store/tasks";
+import { postBoards, postTasks } from "@/store/tasks";
 
 interface IFormInput {
   title: string;
-  description: string;
-  deadline: Date;
 }
 
 const formSchema = z.object({
   title: z.string().min(2, "標題至少需要 2 個字"),
-  description: z.string().min(2, "描述至少需要 2 個字"),
-  deadline: z.date({ required_error: "請選擇截止日期" }),
 });
 
-export default function AddTaskModal({
-  containerId,
-}: {
-  containerId: UniqueIdentifier;
-}) {
+export default function AddBoardModal() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const tasksStore = useSelector((state: RootState) => state.tasksStore);
-  const items = tasksStore.tasks;
+  const boards = tasksStore.boards;
+  const tasks = tasksStore.tasks;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch,
   } = useForm<IFormInput>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      deadline: new Date(), // ✅ 让 react-hook-form 处理日期
-    },
+   
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const newItems = cloneDeep(items);
+    const newBoard = cloneDeep(boards);
+    const newTask = cloneDeep(tasks);
 
     const submitData = {
       ...data,
-      deadline: data.deadline.toISOString(),
       id: crypto.randomUUID(),
-      createTime: new Date().toISOString(),
-      creator: "User",
     };
-    newItems[containerId] = newItems[containerId]
-      ? [...newItems[containerId], submitData]
-      : [submitData];
+    newBoard.push(submitData)
+    newTask[submitData.id] = []
     try {
-      await dispatch(postTasks(newItems));
+      await dispatch(postBoards(newBoard));
+      await dispatch(postTasks(newTask));
       setOpen(false);
     } catch (e) {
       console.log("error", e);
@@ -77,13 +62,13 @@ export default function AddTaskModal({
 
   return (
     <>
-      <DialogRoot size="lg" open={open} onOpenChange={(e) => setOpen(e.open)}>
+      <DialogRoot size="sm" open={open} onOpenChange={(e) => setOpen(e.open)}>
         <DialogTrigger>
           <Button variant="plain" colorPalette="cyan">
             <Icon fontSize="40px" color="teal">
               <HiPlus />
             </Icon>
-            Add a card
+            Add Board
           </Button>
         </DialogTrigger>
         <DialogContent className="p-4">
@@ -97,25 +82,6 @@ export default function AddTaskModal({
                     {errors.title.message}
                   </Field.ErrorText>
                 )}
-              </Field.Root>
-
-              <Field.Root invalid={!!errors.description}>
-                <Field.Label>description</Field.Label>
-                <Input placeholder="description" {...register("description")} />
-                {errors.description && (
-                  <Field.ErrorText className="text-red-500">
-                    {errors.description.message}
-                  </Field.ErrorText>
-                )}
-              </Field.Root>
-
-              <Field.Root invalid={!!errors.deadline}>
-                <Field.Label>deadline</Field.Label>
-                <SingleDatepicker
-                  date={watch("deadline")}
-                  onDateChange={(date) => setValue("deadline", date)}
-                  {...register("deadline")}
-                />
               </Field.Root>
             </Stack>
 
