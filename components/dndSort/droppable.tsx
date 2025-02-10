@@ -4,9 +4,10 @@ import {
   AnimateLayoutChanges,
   defaultAnimateLayoutChanges,
 } from "@dnd-kit/sortable";
-import { Button, Card, Icon, Flex } from "@chakra-ui/react";
-import { HiPlus, HiOutlineDotsVertical } from "react-icons/hi";
+import { Card, Flex } from "@chakra-ui/react";
+import {  HiOutlineDotsVertical } from "react-icons/hi";
 import { CSS } from "@dnd-kit/utilities";
+import AddTask from '@/components/modal/addTaskModal'
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) =>
   defaultAnimateLayoutChanges({ ...args, wasDragging: true });
@@ -62,12 +63,7 @@ export default function Droppable({
       </Card.Header>
       <Card.Body gap="1">{children}</Card.Body>
       <Card.Footer justifyContent="flex-start">
-        <Button variant="plain" colorPalette="cyan" onClick={addCard}>
-          <Icon fontSize="40px" color="teal">
-            <HiPlus />
-          </Icon>
-          Add a card
-        </Button>
+       <AddTask addCard={addCard} containerId={id}/>
       </Card.Footer>
     </Card.Root>
   );

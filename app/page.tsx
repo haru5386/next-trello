@@ -1,12 +1,14 @@
-'use client'
+"use client";
 import Board from "../components/dndSort/index";
 import { useDispatch } from "react-redux";
-import {  AppDispatch } from "@/store";
-import { Button } from "@chakra-ui/react";
-import { postTasks , postBoards} from "@/store/tasks";
+import { AppDispatch } from "@/store";
+import {
+  Button,
+} from "@chakra-ui/react";
+import { postTasks, postBoards } from "@/store/tasks";
+import { useState } from "react";
 
 export default function Home() {
-
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -33,73 +35,85 @@ export default function Home() {
     // console.log('newTasks',newTasks)
 
     const newTasks = {
-      boardId1: [{
-        id: "task-id1", // UniqueIdentifier 类型
-        title: "New Task",
-        description: "Task description",
-        deadline: "2025-02-05",
-        creator: "User",
-        createTime: new Date().toISOString(),
-      },{
-        id: "task-id2", // UniqueIdentifier 类型
-        title: "New Task",
-        description: "Task description",
-        deadline: "2025-02-05",
-        creator: "User",
-        createTime: new Date().toISOString(),
-      },{
-        id: "task-id3", // UniqueIdentifier 类型
-        title: "New Task",
-        description: "Task description",
-        deadline: "2025-02-05",
-        creator: "User",
-        createTime: new Date().toISOString(),
-      }],
-      boardId2: [{
-        id: "task2-id1", // UniqueIdentifier 类型
-        title: "New Task",
-        description: "Task description",
-        deadline: "2025-02-05",
-        creator: "User",
-        createTime: new Date().toISOString(),
-      },{
-        id: "task2-id2", // UniqueIdentifier 类型
-        title: "New Task",
-        description: "Task description",
-        deadline: "2025-02-05",
-        creator: "User",
-        createTime: new Date().toISOString(),
-      },{
-        id: "task2-id3", // UniqueIdentifier 类型
-        title: "New Task",
-        description: "Task description",
-        deadline: "2025-02-05",
-        creator: "User",
-        createTime: new Date().toISOString(),
-      }]
-    }
+      boardId1: [
+        {
+          id: "task-id1", // UniqueIdentifier 类型
+          title: "New Task",
+          description: "Task description",
+          deadline: "2025-02-05",
+          creator: "User",
+          createTime: new Date().toISOString(),
+        },
+        {
+          id: "task-id2", // UniqueIdentifier 类型
+          title: "New Task",
+          description: "Task description",
+          deadline: "2025-02-05",
+          creator: "User",
+          createTime: new Date().toISOString(),
+        },
+        {
+          id: "task-id3", // UniqueIdentifier 类型
+          title: "New Task",
+          description: "Task description",
+          deadline: "2025-02-05",
+          creator: "User",
+          createTime: new Date().toISOString(),
+        },
+      ],
+      boardId2: [
+        {
+          id: "task2-id1", // UniqueIdentifier 类型
+          title: "New Task",
+          description: "Task description",
+          deadline: "2025-02-05",
+          creator: "User",
+          createTime: new Date().toISOString(),
+        },
+        {
+          id: "task2-id2", // UniqueIdentifier 类型
+          title: "New Task",
+          description: "Task description",
+          deadline: "2025-02-05",
+          creator: "User",
+          createTime: new Date().toISOString(),
+        },
+        {
+          id: "task2-id3", // UniqueIdentifier 类型
+          title: "New Task",
+          description: "Task description",
+          deadline: "2025-02-05",
+          creator: "User",
+          createTime: new Date().toISOString(),
+        },
+      ],
+    };
 
     await dispatch(postTasks(newTasks));
   };
 
   // 使用 dispatch 来调用 addBoard
   const handleAddBoard = async () => {
-    await dispatch(postBoards([{
-      id: 'boardId1', // 任务对象
-      title: "title1", // 板子的 ID
-    },{
-      id: 'boardId2', // 任务对象
-      title: "title2", // 板子的 ID
-    }]));
+    await dispatch(
+      postBoards([
+        {
+          id: "boardId1", // 任务对象
+          title: "title1", // 板子的 ID
+        },
+        {
+          id: "boardId2", // 任务对象
+          title: "title2", // 板子的 ID
+        },
+      ])
+    );
   };
-
 
   return (
     <>
-
       <Button onClick={handleAddBoard}>Add Board</Button>
       <Button onClick={handleAddAPITask}>Add API Task</Button>
       <Board />
+    
     </>
   );
 }

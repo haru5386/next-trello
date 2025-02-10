@@ -31,8 +31,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
 import { postBoards, postTasks, fetchTasks, fetchBoards } from "@/store/tasks";
 import cloneDeep from "lodash/cloneDeep";
-import AddTaskModal from "../modal/addTask";
-
+import { Task } from "@/store/tasks";
 const TRASH_ID = "TRASH";
 
 export default function DndSort() {
@@ -46,6 +45,22 @@ export default function DndSort() {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
 
+  const defaultTask: Task = {
+    id: "default",
+    title: "Default Task",
+    description: "This is a fallback task",
+    deadline: new Date().toISOString(),
+    creator: "System",
+    createTime: new Date().toISOString(),
+  };
+
+  const selectItem = (): Task => {
+    for (const key of Object.keys(items)) {
+      const foundItem = items[key].find((item) => item.id === activeId);
+      if (foundItem) return foundItem;
+    }
+    return defaultTask; // 确保返回一个默认 Task
+  };
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -208,9 +223,6 @@ export default function DndSort() {
     }
   };
 
-  const handleAddCard = ()=>{
-
-  }
 
   const dropAnimation: DropAnimation = {
     sideEffects: defaultDropAnimationSideEffects({
@@ -222,11 +234,10 @@ export default function DndSort() {
     }),
   };
 
-  const [isShowModal, setIsShowModal] = useState<boolean>(false)
-  const openModal = ()=>{
-    console.log('openModal')
-    setIsShowModal(true)
-  }
+const handleAddCard = ()=>{
+  console.log('handle add task')
+}
+
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -256,13 +267,13 @@ export default function DndSort() {
         >
           {containers &&
             containers.map((container) => (
-              <Droppable key={container.id} id={container.id} addCard={openModal}>
+              <Droppable key={container.id} id={container.id} addCard={handleAddCard}>
                 <SortableContext
                   items={containers}
                   strategy={verticalListSortingStrategy}
                 >
                   {items[container.id]?.map((i) => (
-                    <SortableItem key={i.id} id={i.id}></SortableItem>
+                    <SortableItem key={i.id} id={i.id} item={i}></SortableItem>
                   ))}
                 </SortableContext>
               </Droppable>
@@ -275,17 +286,16 @@ export default function DndSort() {
             containers.some((container) => container.id === activeId) ? (
               <Droppable id={activeId}>
                 {items[activeId].map((i) => (
-                  <SortableItem key={i.id} id={i.id}></SortableItem>
+                  <SortableItem key={i.id} id={i.id} item={i}></SortableItem>
                 ))}
               </Droppable>
             ) : (
-              <SortableItem id={activeId} />
+              <SortableItem id={activeId} item={selectItem()}/>
             )
           ) : null}
         </DragOverlay>,
         document.body
       )}
-      <AddTaskModal isOpen={isShowModal}></AddTaskModal>
     </DndContext>
   );
 }

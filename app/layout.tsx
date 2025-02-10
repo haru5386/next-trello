@@ -36,13 +36,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div id="modal-root"></div>
-
+        <div id="popover-container"></div>
+        
         <React.StrictMode>
           <Provider>
             <ThemeProvider>
               <Header></Header>
               {children}
               {modal}
+              
             </ThemeProvider>
           </Provider>
         </React.StrictMode>
