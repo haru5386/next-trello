@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { Button, Flex } from "@chakra-ui/react";
 import { postTasks, postBoards } from "@/store/tasks";
-import AddBoardModal from "@/components/modal/addBoardModal";
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -118,9 +117,6 @@ export default function Home() {
     <>
       {/* <Button onClick={handleAddBoard}>Add Board</Button>
       <Button onClick={handleAddAPITask}>Add API Task</Button> */}
-      <Flex justifyContent="end" className="p-4">
-        <AddBoardModal />
-      </Flex>
       <Board />
     </>
   );

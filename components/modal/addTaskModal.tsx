@@ -7,6 +7,7 @@ import {
   Icon,
   Flex,
   Text,
+  Textarea
 } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -114,7 +115,7 @@ export default function AddTaskModal({
 
               <Field.Root invalid={!!errors.description}>
                 <Field.Label>description</Field.Label>
-                <Input placeholder="description" {...register("description")} />
+                <Textarea placeholder="description" {...register("description")} />
                 {errors.description && (
                   <Field.ErrorText className="text-red-500">
                     {errors.description.message}

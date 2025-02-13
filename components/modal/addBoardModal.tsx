@@ -1,3 +1,4 @@
+'use client'
 import {
   Button,
   Stack,
@@ -74,9 +75,9 @@ export default function AddBoardModal() {
           <Flex
             gap="1"
             alignItems="center"
-            className="hover:cursor-pointer text-cyan-900 hover:text-cyan-700"
+            className="hover:cursor-pointer text-white hover:text-cyan-200"
           >
-            <Icon fontSize="20px" color="teal">
+            <Icon fontSize="20px" color="white" className="hover:text-cyan-200">
               <HiPlus />
             </Icon>
             <Text textStyle="md">Add Board</Text>

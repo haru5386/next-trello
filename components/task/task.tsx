@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
 import { useState, use, useEffect, MouseEvent } from "react";
-import { Button, Stack, Field, Input } from "@chakra-ui/react";
+import { Button, Stack, Field, Input, Textarea } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -151,7 +151,7 @@ export default function TaskItem({ params, onCancel }: TaskProps) {
 
             <Field.Root invalid={!!errors.description}>
               <Field.Label>description</Field.Label>
-              <Input
+              <Textarea
                 placeholder="description"
                 {...register("description")}
                 disabled={!isEdit}
