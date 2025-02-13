@@ -15,6 +15,7 @@ export interface Task {
   deadline: string;
   creator: string;
   createTime: string;
+  board: UniqueIdentifier
 }
 
 export interface InitialState {

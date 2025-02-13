@@ -1,5 +1,13 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
-import { Button, Stack, Field, Input, Icon } from "@chakra-ui/react";
+import {
+  Button,
+  Stack,
+  Field,
+  Input,
+  Icon,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -63,6 +71,7 @@ export default function AddTaskModal({
       id: crypto.randomUUID(),
       createTime: new Date().toISOString(),
       creator: "User",
+      board: containerId,
     };
     newItems[containerId] = newItems[containerId]
       ? [...newItems[containerId], submitData]
@@ -79,12 +88,16 @@ export default function AddTaskModal({
     <>
       <DialogRoot size="lg" open={open} onOpenChange={(e) => setOpen(e.open)}>
         <DialogTrigger>
-          <Button variant="plain" colorPalette="cyan">
-            <Icon fontSize="40px" color="teal">
+          <Flex
+            gap="1"
+            alignItems="center"
+            className="hover:cursor-pointer text-cyan-900 hover:text-cyan-700"
+          >
+            <Icon fontSize="20px" color="teal">
               <HiPlus />
             </Icon>
-            Add a card
-          </Button>
+            <Text textStyle="md">Add a card</Text>
+          </Flex>
         </DialogTrigger>
         <DialogContent className="p-4">
           <form onSubmit={handleSubmit(onSubmit)}>

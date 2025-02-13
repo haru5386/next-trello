@@ -4,7 +4,6 @@ import {
   DndContext,
   closestCenter,
   KeyboardSensor,
-  PointerSensor,
   useSensor,
   useSensors,
   DragEndEvent,
@@ -13,15 +12,16 @@ import {
   DropAnimation,
   defaultDropAnimationSideEffects,
   DragOverlay,
+  MouseSensor,
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  sortableKeyboardCoordinates,
   horizontalListSortingStrategy,
   verticalListSortingStrategy,
   arrayMove,
 } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
+// import { MouseSensor, TouchSensor } from './customSensors'; // 匯入自訂感應器
 
 import Droppable from "./droppable";
 
@@ -52,6 +52,7 @@ export default function DndSort() {
     deadline: new Date().toISOString(),
     creator: "System",
     createTime: new Date().toISOString(),
+    board: ''
   };
 
   const selectItem = (): Task => {
@@ -61,12 +62,15 @@ export default function DndSort() {
     }
     return defaultTask; // 确保返回一个默认 Task
   };
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
+
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 5,
+    },
+  });
+  const keyboardSensor = useSensor(KeyboardSensor);
+  const sensors = useSensors(mouseSensor, keyboardSensor);
+
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -257,7 +261,8 @@ export default function DndSort() {
         },
       }}
     >
-      <div className="flex gap-2">
+      <div className="overflow-x-auto w-full whitespace-nowrap p-4">
+        <div className="inline-flex items-start">
         <SortableContext
           items={containers}
           strategy={horizontalListSortingStrategy}
@@ -276,6 +281,7 @@ export default function DndSort() {
               </Droppable>
             ))}
         </SortableContext>
+        </div>
       </div>
       {createPortal(
         <DragOverlay dropAnimation={dropAnimation}>

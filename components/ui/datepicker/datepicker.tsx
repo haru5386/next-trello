@@ -260,7 +260,7 @@ export const SingleDatepicker: React.FC<SingleDatepickerProps> = ({
             ref={initialFocusRef}
             onClick={() => setPopoverOpen(!popoverOpen)}
             name={name}
-            value={format(date, configs.dateFormat)}
+            value={format(date || new Date(), configs.dateFormat)}
             onChange={(e) => e.target.value}
           />
           </InputGroup>

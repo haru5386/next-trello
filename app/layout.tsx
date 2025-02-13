@@ -6,7 +6,6 @@ import * as React from "react";
 import Header from "@/components/Header";
 import Provider from './storeProvider';
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
