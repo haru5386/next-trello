@@ -1,4 +1,5 @@
-import { Button, Icon, HStack } from "@chakra-ui/react";
+// import { Button, Icon, HStack } from "@chakra-ui/react";
+import {  Icon } from "@chakra-ui/react";
 import { HiSupport } from "react-icons/hi";
 import Link from "next/link";
 import AddBoardModal from "@/components/modal/addBoardModal";

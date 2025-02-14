@@ -1,11 +1,11 @@
 "use client";
 import Board from "../components/dndSort/index";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store";
-import { Button, Flex } from "@chakra-ui/react";
-import { postTasks, postBoards } from "@/store/tasks";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "@/store";
+// import { Button, Flex } from "@chakra-ui/react";
+// import { postTasks, postBoards } from "@/store/tasks";
 export default function Home() {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
   // const boardId = "board-id2"; // 假设这是一个有效的 BoardId
 
