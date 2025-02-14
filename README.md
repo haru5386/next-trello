@@ -20,15 +20,18 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, run the development server:
 
+```install
+bun install
+```
+
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
 bun dev
 ```
+
+```build
+bun build
+```
+
 
 Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.
 
