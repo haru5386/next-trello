@@ -1,3 +1,4 @@
+'use client'
 import React, { Fragment, useRef, useState, ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 
@@ -243,7 +244,6 @@ export const SingleDatepicker: React.FC<SingleDatepickerProps> = ({
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    console.log('container', document.getElementById("popover-container"))
     setContainer(document.getElementById("popover-container"));
   }, []);
 

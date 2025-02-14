@@ -246,6 +246,13 @@ export default function DndSort() {
     });
   }, [items]);
 
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+
+
+  useEffect(() => {
+    setContainer(document.getElementById("modal-root"));
+  }, []);
+
   return (
     <DndContext
       sensors={sensors}
@@ -283,7 +290,7 @@ export default function DndSort() {
         </SortableContext>
         </div>
       </div>
-      {createPortal(
+      {container && createPortal(
         <DragOverlay dropAnimation={dropAnimation}>
           {
           activeId ? (
@@ -298,7 +305,7 @@ export default function DndSort() {
             )
           ) : null}
         </DragOverlay>,
-        document.body
+        container
       )}
     </DndContext>
   );

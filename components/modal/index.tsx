@@ -15,7 +15,6 @@ export default function Modal({ children, ref, onCancel }: { children: React.Rea
     const [container, setContainer] = useState<HTMLElement | null>(null);
   
     useEffect(() => {
-      console.log('container', document.getElementById("modal-root"))
       setContainer(document.getElementById("modal-root"));
     }, []);
 
