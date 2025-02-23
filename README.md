@@ -1,20 +1,28 @@
+## 說明
+這是一個仿 trello 看板，技術用 React + Nextjs + Redux + tailwind + chakra開發，部署在 Vercel 上。  
+可以[點我](https://next-trello-rouge.vercel.app/)使用。
+
 ## 功能
-可以新增卡片
-可以刪除卡片
-可以編輯卡片
-可以拖曳卡片
-可以新增看板
-點擊展開卡片詳細資訊
+- 可以新增卡片
+- 可以刪除卡片
+- 可以編輯卡片
+- 可以拖曳卡片
+- 可以新增看板
+- 點擊兩下修改看板名稱
+- 點擊展開卡片詳細資訊
+
+
+## 頁面
+- 卡片頁面
+- 新增頁面
+- 修改頁面
+- 新增分類
+
+## 頁面預覽
+![頁面預覽](https://i.imgur.com/wuFT70c.png)
+
 
 --------
-## 頁面
-卡片頁面
-新增頁面
-修改頁面
-新增分類
-
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
